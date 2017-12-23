@@ -1,0 +1,14 @@
+html
+  head
+    style
+      include style.css
+    title= title
+  body
+    h1
+      a(href='')= title
+    h2 [DBs]
+    div#menu
+      ul
+        each db in dbs
+          li
+            a(href= 'luppolo/'+db)= db

@@ -1,0 +1,18 @@
+html
+  head
+    style
+      include style.css
+    title= title
+  body
+    h1
+      a(href='/')= title
+    h2
+      a(href='/') Home 
+      span= ' / DB: '+db
+    h3 [KEYS]
+    div#menu
+      ul
+        each key in keys
+          li
+            a(href= '/'+db+'/'+key+'?pretty' target='valueFrame')= key
+    iframe#valueFrame(name='valueFrame')

@@ -1,2 +1,2 @@
-# luppolo-db
-In-memory Key-Value store
+# LuppoloDB
+In-memory Key-Value store.
