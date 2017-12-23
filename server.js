@@ -6,6 +6,7 @@ const pjson = require('./package.json');
 const pretty = require('express-prettify');
 
 const luppoloName = 'LuppoloDB v.' + pjson.version;
+const luppoloUIRoot = '/luppolo';
 
 var app = express();
 app.set('view engine', 'pug');
@@ -16,17 +17,17 @@ app.use(bodyParser.json({
 }));
 
 app.get('/', function (req, res) {
-	res.redirect('/luppolo');
+	res.redirect(luppoloUIRoot);
 });
 
-app.get('/luppolo', function (req, res) {
+app.get(luppoloUIRoot, function (req, res) {
 	res.render('index', {
 		title: luppoloName,
 		dbs: db.listDB()
 	})
 });
 
-app.get('/luppolo/:db', function (req, res) {
+app.get(luppoloUIRoot + '/:db', function (req, res) {
 	var params = req.params;
 	res.render('db', {
 		title: luppoloName,

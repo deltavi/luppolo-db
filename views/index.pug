@@ -9,6 +9,8 @@ html
     h2 [DBs]
     div#menu
       ul
+        if dbs.length == 0
+          li [no DB]
         each db in dbs
           li
             a(href= 'luppolo/'+db)= db
