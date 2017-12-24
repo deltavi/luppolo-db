@@ -1,10 +1,12 @@
 # LuppoloDB
 In-memory Key-Value store.
 
-## PUT
+##HTTP API
+
+### PUT
 `PUT http://localhost:3003/db1/1`
 
-Value:
+Body:
 ```json
 {
     "boolean": true,
@@ -33,7 +35,7 @@ Value:
 }
 ```
 
-## GET
+### GET
 `GET http://localhost:3003/db1/1`
 
 **Result:**
@@ -55,7 +57,7 @@ Value:
 }
 ```
 
-## DELETE
+### DELETE
 `DELETE http://localhost:3003/db1/1`
 
 **Result:**
