@@ -56,6 +56,14 @@ Body:
     "lastUpdate": "2017-12-23T23:52:11.445Z"
 }
 ```
+**or**
+```json
+{
+    "result": "unknown",
+    "db": "db1",
+    "key": "1"
+}
+```
 
 ### DELETE
 `DELETE http://localhost:3003/db1/1`
