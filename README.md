@@ -5,7 +5,7 @@ In-memory Key-Value store.
 `PUT http://localhost:3003/db1/1`
 
 Value:
-```javascript
+```json
 {
     "boolean": true,
     "number": 123,
@@ -17,7 +17,7 @@ Value:
 }
 ```
 **Result:**
-```javascript
+```json
 {
     "result": "created",
     "db": "db1",
@@ -25,7 +25,7 @@ Value:
 }
 ```
 **or**
-```javascript
+```json
 {
     "result": "updated",
     "db": "db1",
@@ -37,7 +37,7 @@ Value:
 `GET http://localhost:3003/db1/1`
 
 **Result:**
-```javascript
+```json
 {
     "result": "found",
     "db": "db1",
@@ -59,7 +59,7 @@ Value:
 `DELETE http://localhost:3003/db1/1`
 
 **Result:**
-```javascript
+```json
 {
     "result": "deleted",
     "db": "db1",
@@ -77,7 +77,7 @@ Value:
 }
 ```
 **or**
-```javascript
+```json
 {
     "result": "unknown",
     "db": "db1",
