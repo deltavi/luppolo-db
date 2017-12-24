@@ -2,6 +2,8 @@ html
   head
     style
       include style.css
+    script
+      include db.js
     title= title
   body
     h1
@@ -12,7 +14,12 @@ html
     h3 [KEYS]
     div#menu
       ul
+        if keys.length == 0
+          li [no key]
         each key in keys
           li
             a(href= '/'+db+'/'+key+'?pretty' target='valueFrame')= key
+            | 
+            a(href= '#' class='delete' onclick='onDelete("' + db + '", "' + key + '")')= '[delete]'
+
     iframe#valueFrame(name='valueFrame')
