@@ -1,7 +1,7 @@
 # LuppoloDB
 In-memory Key-Value store.
 
-##HTTP API
+## HTTP API
 
 ### PUT
 `PUT http://localhost:3003/db1/1`
