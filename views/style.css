@@ -49,6 +49,7 @@ div#menu {
     overflow-x: hidden;
     overflow-y: auto;
     background-color: aliceblue;
+    height: calc(100% - 100px);
 }
 
 iframe#valueFrame {

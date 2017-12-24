@@ -35,8 +35,17 @@ app.get(luppoloUIRoot + '/:db', function (req, res) {
 	res.render('db', {
 		title: luppoloName,
 		db: params.db,
-		keys: db.keys(params.db)
+		keys: db.keys(params.db).keys
 	})
+});
+
+app.get(luppoloUIRoot + '/test/:total', function (req, res) {
+	var params = req.params;
+	var total = parseInt(params.total);
+	for (let i = 0; i < total; i++) {
+		db.put('testDB', 'key_' + i, { val: i });
+	}
+	res.json({ test: 'ok' });
 });
 
 // GET
@@ -44,6 +53,20 @@ app.get('/:db/:key', function (req, res) {
 	var params = req.params;
 	res.setHeader('Content-Type', 'application/json');
 	res.json(db.get(params.db, params.key));
+});
+
+// GET DB KEYS
+app.get('/:db', function (req, res) {
+	var params = req.params;
+	var query = req.query;
+	var json;
+	if (query.hasOwnProperty('_count')) {
+		json = db.count(params.db);
+	} else {
+		json = db.keys(params.db);
+	}
+	res.setHeader('Content-Type', 'application/json');
+	res.json(json);
 });
 
 // PUT

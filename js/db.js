@@ -35,9 +35,11 @@ function del(db, key) {
 function _createResult(result, db, key, value, lastUpdate) {
     var ret = {
         result: result,
-        db: db,
-        key: key
+        db: db
     };
+    if (key) {
+        ret.key = key;
+    }
     if (value) {
         ret.value = value;
     }
@@ -52,7 +54,29 @@ function listDB() {
 }
 
 function keys(db) {
-    return Object.keys(dbs[db] || []);
+    var ret;
+    if (dbs[db]) {
+        ret = _createResult('found', db);
+        ret.keys = Object.keys(dbs[db]);
+        ret.total = ret.keys.length;        
+    } else {
+        ret = _createResult('unknown', db);
+        ret.total = 0;
+        ret.keys = [];
+    }
+    return ret;
+}
+
+function count(db) {
+    var ret;
+    if (dbs[db]) {
+        ret = _createResult('found', db);
+        ret.total = Object.keys(dbs[db]).length;        
+    } else {
+        ret = _createResult('unknown', db);
+        ret.total = 0;
+    }
+    return ret;
 }
 
 // exports
@@ -61,3 +85,4 @@ module.exports.put = put;
 module.exports.delete = del;
 module.exports.listDB = listDB;
 module.exports.keys = keys;
+module.exports.count = count;

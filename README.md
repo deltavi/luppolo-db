@@ -94,3 +94,47 @@ Body:
     "key": "1"
 }
 ```
+
+### GET DB KEYS
+`GET http://localhost:3003/db1`
+
+**Result:**
+```json
+{
+    "result": "found",
+    "db": "db1",
+    "keys": [
+        "1"
+    ],
+    "total": 1
+}
+```
+**or**
+```json
+{
+    "result": "unknown",
+    "db": "db1",
+    "total": 0,
+    "keys": []
+}
+```
+
+### COUNT DB KEYS
+`GET http://localhost:3003/db1?_count`
+
+**Result:**
+```json
+{
+    "result": "found",
+    "db": "db1",
+    "total": 1
+}
+```
+**or**
+```json
+{
+    "result": "unknown",
+    "db": "db1",
+    "total": 0
+}
+```
