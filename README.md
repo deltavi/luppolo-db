@@ -17,6 +17,8 @@ In-memory Key-Value store.
 ## HTTP API
 
 ### PUT
+Store or update a value in storage.
+
 `PUT http://localhost:3003/db1/1`
 
 Body:
@@ -49,6 +51,8 @@ Body:
 ```
 
 ### GET
+Retrieve a value from storage.
+
 `GET http://localhost:3003/db1/1`
 
 **Result:**
@@ -79,6 +83,8 @@ Body:
 ```
 
 ### DELETE
+Removes a value from storage.
+
 `DELETE http://localhost:3003/db1/1`
 
 **Result:**
@@ -109,6 +115,8 @@ Body:
 ```
 
 ### GET DB KEYS
+Retrieve a DB keys from storage.
+
 `GET http://localhost:3003/db1`
 
 **Result:**
