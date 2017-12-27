@@ -36,6 +36,11 @@ h1 {
     padding: 5px;
 }
 
+h1 img {
+    height: 34px;
+    vertical-align: bottom;
+}
+
 h2 {
     font-size: 15px;
 }
@@ -52,6 +57,38 @@ div#menu {
     height: calc(100% - 100px);
 }
 
+div#menuHeader {
+    max-width: 350px;
+    background-color: #eeeeee;
+    padding: 5px 0;
+}
+
+div#queryBox {
+    padding-top: 10px;
+    text-align: right;
+}
+
+textarea#query {
+    display: block;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: 300px;
+    font-family: monospace;
+    white-space: nowrap;
+}
+
+input#submitQuery {
+    margin-top: 10px;
+    color: brown;
+    background-color: orange;
+    border-radius: 5px;
+    padding: 2px 5px;
+    border-width: 1px;
+    border-color: brown;
+    border-style: solid;
+}
+
 iframe#valueFrame {
     top: 55px;
     position: absolute;
@@ -62,8 +99,25 @@ iframe#valueFrame {
     background-color: wheat;
 }
 
-.delete {
+.deleteBtn {
     float: right;
     font-size: 10px;
+    color: white;
+    background-color: gray;
+    padding: 2px 3px;
+    border-radius: 3px;
+    border: solid 1px #444;
+}
+
+.searchBtn {
+    float: right;
+    font-size: 12px;
     color: brown;
+    background-color: orange;
+    padding: 3px 4px;
+    border-radius: 5px;
+    font-weight: normal;
+    border-width: 1px;
+    border-color: brown;
+    border-style: solid;
 }

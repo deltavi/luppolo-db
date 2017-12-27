@@ -1,0 +1,25 @@
+html
+  head
+    style
+      include style.css
+    script
+      include script.js
+    title= title
+  body
+    h1
+      img(src='/luppolo.png')
+      a(href='/')= title
+    div#menuHeader
+      h2
+        a(href='/') Home
+        span= ' / DB: '
+        a(href='./')= db
+        span= ' / search'
+        form(method= 'POST' action='/'+db+'/_search?pretty' target='valueFrame')
+          div#queryBox
+            textarea#query
+              |{
+              | "fields" : ["value"]
+              |}
+            input#submitQuery(type='submit' value='search')
+    iframe#valueFrame(name='valueFrame')

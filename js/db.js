@@ -79,6 +79,19 @@ function count(db) {
     return ret;
 }
 
+function search(db, query) {
+    var ret;
+    if (dbs[db]) {
+        ret = _createResult('found', db);
+        ret.hits = [];
+        ret.total = 0;
+    } else {
+        ret = _createResult('unknown', db);
+        ret.total = 0;
+    }
+    return ret;
+}
+
 // exports
 module.exports.get = get;
 module.exports.put = put;
@@ -86,3 +99,4 @@ module.exports.delete = del;
 module.exports.listDB = listDB;
 module.exports.keys = keys;
 module.exports.count = count;
+module.exports.search = search;

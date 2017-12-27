@@ -7,12 +7,15 @@ html
     title= title
   body
     h1
+      img(src='/luppolo.png')
       a(href='/')= title
-    h2
-      a(href='/') Home 
-      span= ' / DB: '+db
-    h3 [KEYS]
     div#menu
+      div#menuHeader
+        h2
+          a(href='/') Home
+          span= ' / DB: '+db
+        h3 [KEYS]
+          a(href='/luppolo/'+db+'/_search' class='searchBtn') search
       ul
         if keys.length == 0
           li [no key]
@@ -20,6 +23,6 @@ html
           li
             a(href= '/'+db+'/'+key+'?pretty' target='valueFrame')= key
             | 
-            a(href= '#' class='delete' onclick='onDelete("' + db + '", "' + key + '")')= '[delete]'
+            a(href= '#' class='deleteBtn' onclick='onDelete("' + db + '", "' + key + '")')= 'delete'
 
     iframe#valueFrame(name='valueFrame')

@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./js/db');
+const utils = require('./js/utils');
 const config = require('./config');
 const pjson = require('./package.json');
 const pretty = require('express-prettify');
@@ -13,6 +14,7 @@ const luppoloUIRoot = '/luppolo';
 var app = express();
 app.set('view engine', 'pug');
 app.use(pretty({ query: 'pretty' }));
+app.use(express.static('docs'));
 
 app.use(bodyParser.json({
 	extended: true
@@ -27,7 +29,7 @@ app.get(luppoloUIRoot, function (req, res) {
 	res.render('index', {
 		title: luppoloName,
 		dbs: db.listDB()
-	})
+	});
 });
 
 app.get(luppoloUIRoot + '/:db', function (req, res) {
@@ -36,6 +38,14 @@ app.get(luppoloUIRoot + '/:db', function (req, res) {
 		title: luppoloName,
 		db: params.db,
 		keys: db.keys(params.db).keys
+	})
+});
+
+app.get(luppoloUIRoot + '/:db/_search', function (req, res) {
+	var params = req.params;
+	res.render('search', {
+		title: luppoloName,
+		db: params.db
 	})
 });
 
@@ -81,6 +91,13 @@ app.delete('/:db/:key', function (req, res) {
 	var params = req.params;
 	res.setHeader('Content-Type', 'application/json');
 	res.json(db.delete(params.db, params.key));
+});
+
+// SEARCH
+app.post('/:db/_search', function (req, res) {
+	var params = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    res.json(db.search(params.db, req.body));
 });
 
 app.listen(config.server.port, function () {

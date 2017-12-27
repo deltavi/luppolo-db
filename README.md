@@ -1,5 +1,18 @@
-# LuppoloDB
+# ![luppoloDB](docs/luppolo.png) LuppoloDB
 In-memory Key-Value store.
+
+## Table of Contents
+
+<!-- toc -->
+
+- [HTTP API](#http-api)
+  * [PUT](#put)
+  * [GET](#get)
+  * [DELETE](#delete)
+  * [GET DB KEYS](#get-db-keys)
+  * [COUNT DB KEYS](#count-db-keys)
+
+<!-- tocstop -->
 
 ## HTTP API
 
