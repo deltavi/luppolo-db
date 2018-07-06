@@ -3,7 +3,7 @@ function ajax(method, url, callback, data) {
         var x = new (this.XMLHttpRequest || ActiveXObject)('MSXML2.XMLHTTP.3.0');
         x.open(method, url, 1);
         x.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        x.setRequestHeader('Content-type', 'application/json; charset=utf-8');
         x.onreadystatechange = function () {
             x.readyState > 3 && callback && callback(x.responseText, x);
         };
@@ -18,4 +18,22 @@ function onDelete(db, key) {
     ajax('DELETE', '/' + db + '/' + key + '?pretty', function (res) {
         window.location.reload();
     });
+}
+
+function onSearch(db, queryId, valueId) {
+    var el = document.getElementById(queryId);
+    var query = el.value;
+    ajax('POST', '/' + db + '/_search?pretty', function (responseText, res) {
+        var valueFrame = document.getElementById(valueId);
+        valueFrame = valueFrame.contentWindow || valueFrame.contentDocument.document || valueFrame.contentDocument;
+        valueFrame.document.open();
+        var resHtml;
+        if(res.status === 200){
+           resHtml = '<pre>' + responseText + '</pre>';
+        } else {
+           resHtml = responseText;
+        }
+        valueFrame.document.write(resHtml);
+        valueFrame.document.close();
+    }, query);
 }

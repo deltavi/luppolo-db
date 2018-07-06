@@ -1,4 +1,5 @@
-// require
+'use strict';
+// requires
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./js/db');

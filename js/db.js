@@ -1,37 +1,11 @@
+'use strict';
+//requires
+const jpath = require('jsonpath');
+
+//DB Store
 var dbs = {};
 
-function get(db, key) {
-    if (dbs[db] && dbs[db][key]) {
-        var content = dbs[db][key];
-        return _createResult('found', db, key, content.data, content.lastUpdate);
-    } else {
-        return _createResult('unknown', db, key);
-    }
-}
-
-function put(db, key, value) {
-    dbs[db] = dbs[db] || {};
-    var result = dbs[db][key] ? 'updated' : 'created';
-
-    dbs[db][key] = {
-        data: value,
-        lastUpdate: new Date().toISOString()
-    };
-    return ret = _createResult(result, db, key);
-}
-
-function del(db, key) {
-    var ret;
-    if (dbs[db] && dbs[db][key]) {
-        var oldContent = dbs[db][key];
-        ret = _createResult('deleted', db, key, oldContent.data, oldContent.lastUpdate);
-        delete dbs[db][key];
-    } else {
-        ret = _createResult('unknown', db, key);
-    }
-    return ret;
-}
-
+//private
 function _createResult(result, db, key, value, lastUpdate) {
     var ret = {
         result: result,
@@ -45,6 +19,39 @@ function _createResult(result, db, key, value, lastUpdate) {
     }
     if (lastUpdate) {
         ret.lastUpdate = lastUpdate;
+    }
+    return ret;
+}
+
+//
+function get(db, key) {
+    if (dbs[db] && dbs[db][key]) {
+        var content = dbs[db][key];
+        return _createResult('found', db, key, content.value, content.lastUpdate);
+    } else {
+        return _createResult('unknown', db, key);
+    }
+}
+
+function put(db, key, value) {
+    dbs[db] = dbs[db] || {};
+    var result = dbs[db][key] ? 'updated' : 'created';
+
+    dbs[db][key] = {
+        value: value,
+        lastUpdate: new Date().toISOString()
+    };
+    return _createResult(result, db, key);
+}
+
+function del(db, key) {
+    var ret;
+    if (dbs[db] && dbs[db][key]) {
+        var oldContent = dbs[db][key];
+        ret = _createResult('deleted', db, key, oldContent.value, oldContent.lastUpdate);
+        delete dbs[db][key];
+    } else {
+        ret = _createResult('unknown', db, key);
     }
     return ret;
 }
@@ -82,9 +89,19 @@ function count(db) {
 function search(db, query) {
     var ret;
     if (dbs[db]) {
-        ret = _createResult('found', db);
-        ret.hits = [];
-        ret.total = 0;
+        if(query.hasOwnProperty('jpath')){
+            ret = _createResult('found', db);
+            ret.hits = jpath.query(dbs[db], query.jpath);
+            ret.total = ret.hits.length;
+        } else if(query.hasOwnProperty('jpath-nodes')){
+            ret = _createResult('found', db);
+            ret.hits = jpath.nodes(dbs[db], query['jpath-nodes']);
+            ret.total = ret.hits.length;
+        } else {
+            ret = _createResult('error', db);
+            ret.message = 'Unknown query type.';
+            ret.query = query;
+        }
     } else {
         ret = _createResult('unknown', db);
         ret.total = 0;

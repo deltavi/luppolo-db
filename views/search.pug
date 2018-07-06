@@ -15,11 +15,10 @@ html
         span= ' / DB: '
         a(href='./')= db
         span= ' / search'
-        form(method= 'POST' action='/'+db+'/_search?pretty' target='valueFrame')
-          div#queryBox
-            textarea#query
-              |{
-              | "fields" : ["value"]
-              |}
-            input#submitQuery(type='submit' value='search')
+        div#queryBox
+          textarea#query(name='query')
+            |{
+            | "jpath" : "$"
+            |}
+          a(href= '#' class='searchBtn' onclick='onSearch("' + db + '", "query", "valueFrame")')= 'search'
     iframe#valueFrame(name='valueFrame')

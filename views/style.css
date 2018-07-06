@@ -31,14 +31,17 @@ li:not(:last-child){
 }
 
 h1 {
-    font-size: 25px;
+    font-size: 30px;
     text-align: center;
-    padding: 5px;
+    padding-top: 5px;
+    margin-bottom: 12px;
 }
 
 h1 img {
-    height: 34px;
+    height: 38px;
     vertical-align: bottom;
+    transform: rotate(30deg);
+    padding-right: 2px;
 }
 
 h2 {
@@ -89,7 +92,7 @@ input#submitQuery {
     border-style: solid;
 }
 
-iframe#valueFrame {
+#valueFrame {
     top: 55px;
     position: absolute;
     right: 5px;
@@ -97,6 +100,8 @@ iframe#valueFrame {
     width: calc(100% - 360px);
     height: calc(100% - 60px);
     background-color: wheat;
+    font-family: monospace;
+    white-space: nowrap;
 }
 
 .deleteBtn {
@@ -110,7 +115,6 @@ iframe#valueFrame {
 }
 
 .searchBtn {
-    float: right;
     font-size: 12px;
     color: brown;
     background-color: orange;
@@ -120,4 +124,6 @@ iframe#valueFrame {
     border-width: 1px;
     border-color: brown;
     border-style: solid;
+    display: inline-block;
+    margin-top: 10px;
 }
