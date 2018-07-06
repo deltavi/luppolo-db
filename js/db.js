@@ -56,8 +56,19 @@ function del(db, key) {
     return ret;
 }
 
-function listDB() {
-    return Object.keys(dbs);
+function listDB(unwrapped) {
+    var keys = Object.keys(dbs);
+    if(unwrapped){
+        return keys
+    }
+    var ret = _createResult('found', '_all');
+    ret.names = keys;
+    ret.total = keys.length;
+    return ret;
+}
+
+function getDBs() {
+    return _createResult('found', '_all', null, dbs);
 }
 
 function keys(db) {
@@ -117,3 +128,4 @@ module.exports.listDB = listDB;
 module.exports.keys = keys;
 module.exports.count = count;
 module.exports.search = search;
+module.exports.getDBs = getDBs;

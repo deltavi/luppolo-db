@@ -29,7 +29,7 @@ app.get('/', function (req, res) {
 app.get(luppoloUIRoot, function (req, res) {
 	res.render('index', {
 		title: luppoloName,
-		dbs: db.listDB()
+		dbs: db.listDB(true)
 	});
 });
 
@@ -57,6 +57,19 @@ app.get(luppoloUIRoot + '/test/:total', function (req, res) {
 		db.put('testDB', 'key_' + i, { val: i });
 	}
 	res.json({ test: 'ok' });
+});
+
+// GET ALL DBS
+app.get('/_dbs', function (req, res) {
+	var query = req.query;
+	var json;
+	if (query.hasOwnProperty('_names')) {
+		json = db.listDB();
+	} else {
+		json = db.getDBs();
+	}
+	res.setHeader('Content-Type', 'application/json');
+	res.json(json);
 });
 
 // GET
