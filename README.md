@@ -11,6 +11,10 @@ In-memory Key-Value store.
   * [DELETE](#delete)
   * [GET DB KEYS](#get-db-keys)
   * [COUNT DB KEYS](#count-db-keys)
+  * [GET ALL DB NAMES](#get-all-db-names)
+  * [GET ALL DBS DATA](#get-all-dbs-data)
+  * [SEARCH BY JSONPATH](#search-by-jsonpath)
+  * [SEARCH BY JSONPATH (NODES)](#search-by-jsonpath-nodes)
 
 <!-- tocstop -->
 
