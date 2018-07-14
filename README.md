@@ -15,6 +15,7 @@ In-memory Key-Value store.
   * [GET ALL DBS DATA](#get-all-dbs-data)
   * [SEARCH BY JSONPATH](#search-by-jsonpath)
   * [SEARCH BY JSONPATH (NODES)](#search-by-jsonpath-nodes)
+  * [NUMERIC INCREMENT](#numeric-increment)
 
 <!-- tocstop -->
 
@@ -257,5 +258,49 @@ Body:
         }
     ],
     "total": 1
+}
+```
+
+### NUMERIC INCREMENT
+Increments the number stored at key by one.
+    
+`PUT http://localhost:3003/db1/1/_increment`
+
+**Result:**
+```json
+{
+    "result": "created",
+    "db": "db1",
+    "key": "1",
+    "value": 1
+}
+```
+
+**or**
+```json
+{
+    "result": "updated",
+    "db": "db1",
+    "key": "1",
+    "value": 2
+}
+```
+
+**or**
+```json
+{
+    "result": "error",
+    "db": "db1",
+    "key": "1",
+    "value": {
+        "boolean": true,
+        "number": 123,
+        "string": "text",
+        "array": [
+            "123",
+            "456"
+        ]
+    },
+    "message": "Value is NaN."
 }
 ```

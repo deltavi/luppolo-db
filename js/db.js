@@ -44,6 +44,25 @@ function put(db, key, value) {
     return _createResult(result, db, key);
 }
 
+function increment(db, key) {
+    dbs[db] = dbs[db] || {};
+    var result = dbs[db][key] ? 'updated' : 'created';
+    dbs[db][key] = dbs[db][key] || {
+        value: 0
+    };
+    var ret;
+    if (isNaN(dbs[db][key].value)) {
+        ret = _createResult('error', db, key, dbs[db][key].value);
+        ret.message = 'Value is NaN.';
+    } else {
+        dbs[db][key].value++;
+        dbs[db][key].lastUpdate = new Date().toISOString();
+        ret = _createResult(result, db, key, dbs[db][key].value);
+    }
+    
+    return ret;
+}
+
 function del(db, key) {
     var ret;
     if (dbs[db] && dbs[db][key]) {
@@ -123,6 +142,7 @@ function search(db, query) {
 // exports
 module.exports.get = get;
 module.exports.put = put;
+module.exports.increment = increment;
 module.exports.delete = del;
 module.exports.listDB = listDB;
 module.exports.keys = keys;

@@ -21,6 +21,10 @@ app.use(bodyParser.json({
 	extended: true
 }));
 
+app.listen(config.server.port, function () {
+	console.log(luppoloName + ' started on port ' + config.server.port + '!');
+});
+
 // UI endpoint
 app.get('/', function (req, res) {
 	res.redirect(luppoloUIRoot);
@@ -114,6 +118,9 @@ app.post('/:db/_search', function (req, res) {
     res.json(db.search(params.db, req.body));
 });
 
-app.listen(config.server.port, function () {
-	console.log(luppoloName + ' started on port ' + config.server.port + '!');
+// NUMERIC INCREMENT
+app.put('/:db/:key/_increment', function (req, res) {
+	var params = req.params;
+	res.setHeader('Content-Type', 'application/json');
+	res.json(db.increment(params.db, params.key));
 });
