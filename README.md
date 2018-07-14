@@ -262,9 +262,22 @@ Body:
 ```
 
 ### NUMERIC INCREMENT
-Increments the number stored at key by one.
-    
+Increments or decrement the number stored at key by incNumber.
+
 `PUT http://localhost:3003/db1/1/_increment`
+
+`PUT http://localhost:3003/db1/1/_increment/100`
+
+`PUT http://localhost:3003/db1/1/_increment/-10`
+
+
+**/{db}/{key}/_increment/{incNumber?}**
+
+Param         | Description      | Default
+--------------|----------------- |--------
+db            | DB name          |
+key           | Key              |
+incNumber     | Increment number | +1
 
 **Result:**
 ```json
@@ -301,6 +314,17 @@ Increments the number stored at key by one.
             "456"
         ]
     },
-    "message": "Value is NaN."
+    "message": "value is NaN."
+}
+```
+
+**or**
+```json
+{
+    "result": "error",
+    "db": "db1",
+    "key": "1",
+    "value": 8,
+    "message": "incNumber is NaN."
 }
 ```

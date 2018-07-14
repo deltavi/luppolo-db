@@ -14,7 +14,7 @@ function _createResult(result, db, key, value, lastUpdate) {
     if (key) {
         ret.key = key;
     }
-    if (value) {
+    if (value != undefined) {
         ret.value = value;
     }
     if (lastUpdate) {
@@ -44,7 +44,8 @@ function put(db, key, value) {
     return _createResult(result, db, key);
 }
 
-function increment(db, key) {
+function increment(db, key, incNumber) {
+    incNumber = incNumber || 1;
     dbs[db] = dbs[db] || {};
     var result = dbs[db][key] ? 'updated' : 'created';
     dbs[db][key] = dbs[db][key] || {
@@ -53,9 +54,12 @@ function increment(db, key) {
     var ret;
     if (isNaN(dbs[db][key].value)) {
         ret = _createResult('error', db, key, dbs[db][key].value);
-        ret.message = 'Value is NaN.';
+        ret.message = 'value is NaN.';
+    } else if (isNaN(incNumber)) {
+        ret = _createResult('error', db, key, dbs[db][key].value);
+        ret.message = 'incNumber is NaN.';
     } else {
-        dbs[db][key].value++;
+        dbs[db][key].value += parseInt(incNumber);
         dbs[db][key].lastUpdate = new Date().toISOString();
         ret = _createResult(result, db, key, dbs[db][key].value);
     }

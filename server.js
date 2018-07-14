@@ -119,8 +119,8 @@ app.post('/:db/_search', function (req, res) {
 });
 
 // NUMERIC INCREMENT
-app.put('/:db/:key/_increment', function (req, res) {
+app.put('/:db/:key/_increment/:incNumber?', function (req, res) {
 	var params = req.params;
 	res.setHeader('Content-Type', 'application/json');
-	res.json(db.increment(params.db, params.key));
+	res.json(db.increment(params.db, params.key, params.incNumber));
 });
