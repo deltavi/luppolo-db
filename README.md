@@ -159,3 +159,99 @@ Retrieve a DB keys from storage.
     "total": 0
 }
 ```
+
+### GET ALL DB NAMES
+`GET http://localhost:3003/_dbs?_names`
+
+**Result:**
+```json
+{
+    "result": "found",
+    "db": "_all",
+    "names": [
+        "db1"
+    ],
+    "total": 1
+}
+```
+
+### GET ALL DBS DATA
+`GET http://localhost:3003/_dbs`
+
+**Result:**
+```json
+{
+    "result": "found",
+    "db": "_all",
+    "value": {
+        "db1": {
+            "1": {
+                "value": {
+                    "boolean": true,
+                    "number": 123,
+                    "string": "text",
+                    "array": [
+                        "123",
+                        "456"
+                    ]
+                },
+                "lastUpdate": "2018-07-14T09:01:01.748Z"
+            }
+        }
+    }
+}
+```
+
+### SEARCH BY JSONPATH
+It allows to search in the selected DB using [jsonpath](https://github.com/dchester/jsonpath).
+
+`POST http://localhost:3003/db1/_search`
+
+Body:
+```json
+{
+    "jpath" : "$..array"
+}
+```
+
+**Result:**
+```json
+{
+    "result": "found",
+    "db": "db1",
+    "hits": [
+        [
+            "123",
+            "456"
+        ]
+    ],
+    "total": 1
+}
+```
+
+### SEARCH BY JSONPATH (NODES)
+It allows to search in the selected DB using [jsonpath](https://github.com/dchester/jsonpath), returning path and value of the nodes found.
+
+`POST http://localhost:3003/db1/_search`
+
+Body:
+```json
+{
+    "jpath-nodes" : "$..array[?(@>200)]"
+}
+```
+
+**Result:**
+```json
+{
+    "result": "found",
+    "db": "db1",
+    "hits": [
+        {
+            "path": ["$", "1", "value", "array", 1],
+            "value": "456"
+        }
+    ],
+    "total": 1
+}
+```
