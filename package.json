@@ -19,7 +19,9 @@
     "express": "^4.16.2",
     "express-prettify": "0.0.10",
     "jsonpath": "^1.0.0",
-    "pug": "^2.0.0-rc.4"
+    "pug": "^2.0.0-rc.4",
+    "winston": "^3.0.0",
+    "winston-daily-rotate-file": "^3.3.0"
   },
   "devDependencies": {
     "markdown-toc": "^1.2.0"

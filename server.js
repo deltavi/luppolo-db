@@ -7,6 +7,7 @@ const utils = require('./js/utils');
 const config = require('./config');
 const pjson = require('./package.json');
 const pretty = require('express-prettify');
+const logger = require('./js/logger');
 //
 const luppoloName = 'LuppoloDB v.' + pjson.version;
 const luppoloUIRoot = '/luppolo';
@@ -22,7 +23,8 @@ app.use(bodyParser.json({
 }));
 
 app.listen(config.server.port, function () {
-	console.log(luppoloName + ' started on port ' + config.server.port + '!');
+	const serverUrl = 'http://localhost:' + config.server.port;
+	logger.info(luppoloName + ' is available at URL ' + serverUrl);
 });
 
 // UI endpoint
