@@ -7,10 +7,15 @@ const utils = require('./js/utils');
 const config = require('./config');
 const pjson = require('./package.json');
 const pretty = require('express-prettify');
+const logo = require('./js/logo');
 const logger = require('./js/logger');
 //
-const luppoloName = 'LuppoloDB v.' + pjson.version;
+const luppoloVersion = 'v. ' + pjson.version;
+const luppoloName = 'LuppoloDB ' + luppoloVersion;
 const luppoloUIRoot = '/luppolo';
+
+// Logo
+logo.printLogo('logo.txt', luppoloVersion);
 
 // express
 var app = express();
