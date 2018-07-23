@@ -9,6 +9,7 @@ const pjson = require('./package.json');
 const pretty = require('express-prettify');
 const logo = require('./js/logo');
 const logger = require('./js/logger');
+const plugins = require('./js/plugins');
 //
 const luppoloVersion = 'v. ' + pjson.version;
 const luppoloName = 'LuppoloDB ' + luppoloVersion;
@@ -42,6 +43,30 @@ app.get(luppoloUIRoot, function (req, res) {
 		title: luppoloName,
 		dbs: db.listDB(true)
 	});
+});
+
+app.get(luppoloUIRoot + '/_plugins', function (req, res) {
+	res.render('plugins', {
+		title: luppoloName,
+		plugins: plugins.list
+	});
+});
+
+app.get(luppoloUIRoot + '/_plugins/:pluginId', function (req, res) {
+	var params = req.params;
+	var pluginFound = {
+	    name : 'unknown'
+	};
+	plugins.list.some(function(plugin){
+	    if(params.pluginId === plugin.id){
+	        pluginFound = plugin;
+	        return true;
+	    }
+	})
+	res.render('plugin', {
+		title: luppoloName,
+		plugin: pluginFound
+	})
 });
 
 app.get(luppoloUIRoot + '/:db', function (req, res) {
@@ -131,3 +156,5 @@ app.put('/:db/:key/_increment/:incNumber?', function (req, res) {
 	res.setHeader('Content-Type', 'application/json');
 	res.json(db.increment(params.db, params.key, params.incNumber));
 });
+
+plugins.load(app, db);

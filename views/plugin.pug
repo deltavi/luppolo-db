@@ -1,0 +1,18 @@
+html
+  head
+    style
+      include style.css
+    script
+      include script.js
+    title= title
+  body
+    h1
+      img(src='/luppolo.png')
+      a(href='/')= title
+    div#menu
+      div#menuHeader
+        h2
+          a(href='/') Home
+          span= ' / Plugin: '+plugin.name
+    div#valueFrame(name='valueFrame')
+        pre=JSON.stringify(plugin, null, 2)

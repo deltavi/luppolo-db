@@ -1,0 +1,18 @@
+html
+  head
+    style
+      include style.css
+    title= title
+  body
+    h1
+      img(src='/luppolo.png')
+      a(href='')= title
+    div#menu
+      div#menuHeader
+        h2 [Plugins]
+      ul
+        if plugins.length == 0
+          li [no Plugins]
+        each plugin in plugins
+          li
+            a(href= '_plugins/'+plugin.id)= plugin.name
