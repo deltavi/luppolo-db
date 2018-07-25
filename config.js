@@ -4,7 +4,7 @@ var config = {
         logger : {
             console: true,
             datepattern: "YYYY-MM-DD",
-            filename: "log\\luppolo-%DATE%.log",
+            filename: "log/luppolo-%DATE%.log",
             level: "debug",
             max_size: 2000000
         }

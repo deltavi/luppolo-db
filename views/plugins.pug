@@ -6,7 +6,7 @@ html
   body
     h1
       img(src='/luppolo.png')
-      a(href='')= title
+      a(href='/')= title
     div#menu
       div#menuHeader
         h2 [Plugins]
@@ -15,4 +15,6 @@ html
           li [no Plugins]
         each plugin in plugins
           li
-            a(href= '_plugins/'+plugin.id)= plugin.name
+            a(href= '_plugins/'+plugin.id+'?pretty' target='valueFrame')= plugin.name
+
+    iframe#valueFrame(name='valueFrame')
