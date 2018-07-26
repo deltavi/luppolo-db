@@ -24,7 +24,7 @@ In-memory Key-Value store.
 ### PUT
 Store or update a value in storage.
 
-`PUT http://localhost:3003/db1/1`
+`PUT http://localhost:3003/luppolo/query/db1/1`
 
 Body:
 ```json
@@ -58,7 +58,7 @@ Body:
 ### GET
 Retrieve a value from storage.
 
-`GET http://localhost:3003/db1/1`
+`GET http://localhost:3003/luppolo/query/db1/1`
 
 **Result:**
 ```json
@@ -90,7 +90,7 @@ Retrieve a value from storage.
 ### DELETE
 Removes a value from storage.
 
-`DELETE http://localhost:3003/db1/1`
+`DELETE http://localhost:3003/luppolo/query/db1/1`
 
 **Result:**
 ```json
@@ -122,7 +122,7 @@ Removes a value from storage.
 ### GET DB KEYS
 Retrieve a DB keys from storage.
 
-`GET http://localhost:3003/db1`
+`GET http://localhost:3003/luppolo/query/db1`
 
 **Result:**
 ```json
@@ -146,7 +146,7 @@ Retrieve a DB keys from storage.
 ```
 
 ### COUNT DB KEYS
-`GET http://localhost:3003/db1?_count`
+`GET http://localhost:3003/luppolo/query/db1?_count`
 
 **Result:**
 ```json
@@ -166,7 +166,7 @@ Retrieve a DB keys from storage.
 ```
 
 ### GET ALL DB NAMES
-`GET http://localhost:3003/_dbs?_names`
+`GET http://localhost:3003/luppolo/query/_dbs?_names`
 
 **Result:**
 ```json
@@ -181,7 +181,7 @@ Retrieve a DB keys from storage.
 ```
 
 ### GET ALL DBS DATA
-`GET http://localhost:3003/_dbs`
+`GET http://localhost:3003/luppolo/query/_dbs`
 
 **Result:**
 ```json
@@ -210,7 +210,7 @@ Retrieve a DB keys from storage.
 ### SEARCH BY JSONPATH
 It allows to search in the selected DB using [jsonpath](https://github.com/dchester/jsonpath).
 
-`POST http://localhost:3003/db1/_search`
+`POST http://localhost:3003/luppolo/query/db1/_search`
 
 Body:
 ```json
@@ -237,7 +237,7 @@ Body:
 ### SEARCH BY JSONPATH (NODES)
 It allows to search in the selected DB using [jsonpath](https://github.com/dchester/jsonpath), returning path and value of the nodes found.
 
-`POST http://localhost:3003/db1/_search`
+`POST http://localhost:3003/luppolo/query/db1/_search`
 
 Body:
 ```json
@@ -264,11 +264,11 @@ Body:
 ### NUMERIC INCREMENT
 Increments or decrement the number stored at key by incNumber.
 
-`PUT http://localhost:3003/db1/1/_increment`
+`PUT http://localhost:3003/luppolo/query/db1/1/_increment`
 
-`PUT http://localhost:3003/db1/1/_increment/100`
+`PUT http://localhost:3003/luppolo/query/db1/1/_increment/100`
 
-`PUT http://localhost:3003/db1/1/_increment/-10`
+`PUT http://localhost:3003/luppolo/query/db1/1/_increment/-10`
 
 
 **/{db}/{key}/_increment/{incNumber?}**
