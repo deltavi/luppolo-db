@@ -15,13 +15,13 @@ html
           a(href='/') Home
           span= ' / DB: '+db
         h3 [KEYS]
-          a(href='/luppolo/'+db+'/_search' class='searchBtn') search
+          a(href='/luppolo/ui/'+db+'/_search' class='searchBtn') search
       ul
         if keys.length == 0
           li [no key]
         each key in keys
           li
-            a(href= '/'+db+'/'+key+'?pretty' target='valueFrame')= key
+            a(href= '/luppolo/query/'+db+'/'+key+'?pretty' target='valueFrame')= key
             | 
             a(href= '#' class='deleteBtn' onclick='onDelete("' + db + '", "' + key + '")')= 'delete'
 

@@ -9,10 +9,12 @@ html
       a(href='')= title
     div#menu
       div#menuHeader
-        h2 [DBs]
+        h2
+          span= '[DBs] - '
+          a(href='/luppolo/ui/plugins/')= '[Plugins]'
       ul
         if dbs.length == 0
           li [no DB]
         each db in dbs
           li
-            a(href= 'luppolo/'+db)= db
+            a(href= '/luppolo/ui/'+db)= db

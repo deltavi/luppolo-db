@@ -13,7 +13,9 @@ const plugins = require('./js/plugins');
 //
 const luppoloVersion = 'v. ' + pjson.version;
 const luppoloName = 'LuppoloDB ' + luppoloVersion;
-const luppoloUIRoot = '/luppolo';
+const luppoloRoot = '/luppolo';
+const luppoloUIRoot = luppoloRoot + '/ui';
+const luppoloQueryRoot = luppoloRoot + '/query';
 
 // Logo
 logo.printLogo('logo.txt', luppoloVersion);
@@ -33,8 +35,17 @@ app.listen(config.server.port, function () {
 	logger.info(luppoloName + ' is available at URL ' + serverUrl);
 });
 
+// PLUGINS Manager
+plugins.load(app, db, {
+	serverName : luppoloName
+});
+
 // UI endpoint
 app.get('/', function (req, res) {
+	res.redirect(luppoloUIRoot);
+});
+
+app.get(luppoloRoot, function (req, res) {
 	res.redirect(luppoloUIRoot);
 });
 
@@ -43,10 +54,6 @@ app.get(luppoloUIRoot, function (req, res) {
 		title: luppoloName,
 		dbs: db.listDB(true)
 	});
-});
-
-plugins.load(app, db, {
-	serverName : luppoloName
 });
 
 app.get(luppoloUIRoot + '/:db', function (req, res) {
@@ -76,7 +83,7 @@ app.get(luppoloUIRoot + '/test/:total', function (req, res) {
 });
 
 // GET ALL DBS
-app.get('/_dbs', function (req, res) {
+app.get(luppoloQueryRoot + '/_dbs', function (req, res) {
 	var query = req.query;
 	var json;
 	if (query.hasOwnProperty('_names')) {
@@ -89,14 +96,14 @@ app.get('/_dbs', function (req, res) {
 });
 
 // GET
-app.get('/:db/:key', function (req, res) {
+app.get(luppoloQueryRoot + '/:db/:key', function (req, res) {
 	var params = req.params;
 	res.setHeader('Content-Type', 'application/json');
 	res.json(db.get(params.db, params.key));
 });
 
 // GET DB KEYS
-app.get('/:db', function (req, res) {
+app.get(luppoloQueryRoot + '/:db', function (req, res) {
 	var params = req.params;
 	var query = req.query;
 	var json;
@@ -110,28 +117,28 @@ app.get('/:db', function (req, res) {
 });
 
 // PUT
-app.put('/:db/:key', function (req, res) {
+app.put(luppoloQueryRoot + '/:db/:key', function (req, res) {
 	var params = req.params;
 	res.setHeader('Content-Type', 'application/json');
 	res.json(db.put(params.db, params.key, req.body));
 });
 
 // DELETE
-app.delete('/:db/:key', function (req, res) {
+app.delete(luppoloQueryRoot + '/:db/:key', function (req, res) {
 	var params = req.params;
 	res.setHeader('Content-Type', 'application/json');
 	res.json(db.delete(params.db, params.key));
 });
 
 // SEARCH
-app.post('/:db/_search', function (req, res) {
+app.post(luppoloQueryRoot + '/:db/_search', function (req, res) {
 	var params = req.params;
     res.setHeader('Content-Type', 'application/json');
     res.json(db.search(params.db, req.body));
 });
 
 // NUMERIC INCREMENT
-app.put('/:db/:key/_increment/:incNumber?', function (req, res) {
+app.put(luppoloQueryRoot + '/:db/:key/_increment/:incNumber?', function (req, res) {
 	var params = req.params;
 	res.setHeader('Content-Type', 'application/json');
 	res.json(db.increment(params.db, params.key, params.incNumber));

@@ -9,12 +9,14 @@ html
       a(href='/')= title
     div#menu
       div#menuHeader
-        h2 [Plugins]
+        h2
+          span= '[Plugins] - '
+          a(href='/luppolo/ui/')= '[DBs]'
       ul
         if plugins.length == 0
           li [no Plugins]
         each plugin in plugins
           li
-            a(href= '_plugins/'+plugin.id+'?pretty' target='valueFrame')= plugin.name
+            a(href='/luppolo/ui/plugins/' + plugin.id+'?pretty' target='valueFrame')= plugin.name
 
     iframe#valueFrame(name='valueFrame')

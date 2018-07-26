@@ -15,7 +15,7 @@ function ajax(method, url, callback, data) {
 };
 
 function onDelete(db, key) {
-    ajax('DELETE', '/' + db + '/' + key + '?pretty', function (res) {
+    ajax('DELETE', '/luppolo/query/' + db + '/' + key + '?pretty', function (res) {
         window.location.reload();
     });
 }
@@ -23,7 +23,7 @@ function onDelete(db, key) {
 function onSearch(db, queryId, valueId) {
     var el = document.getElementById(queryId);
     var query = el.value;
-    ajax('POST', '/' + db + '/_search?pretty', function (responseText, res) {
+    ajax('POST', '/luppolo/query/' + db + '/_search?pretty', function (responseText, res) {
         var valueFrame = document.getElementById(valueId);
         valueFrame = valueFrame.contentWindow || valueFrame.contentDocument.document || valueFrame.contentDocument;
         valueFrame.document.open();
