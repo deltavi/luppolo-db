@@ -15,6 +15,14 @@
     "db"
   ],
   "author": "Vincenzo De Vivo (http://www.vincenzodevivo.com)",
+  "homepage": "https://github.com/deltavi/luppolo-db",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/deltavi/luppolo-db.git"
+  },
+  "engines": {
+    "node": ">= 6.0.0"
+  },
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.2",
