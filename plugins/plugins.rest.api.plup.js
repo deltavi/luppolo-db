@@ -29,11 +29,5 @@ module.exports = {
         module.exports.statusMessage = 'Plugin initialized successfully!';
     },
     handlers: {
-        'pre_listDB' : function(args){
-            console.log('pre_listDB', args);
-        },
-        'post_listDB' : function(args){
-            console.log('post_listDB', args);
-        }
     }
 };
