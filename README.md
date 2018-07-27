@@ -1,4 +1,4 @@
-# ![luppoloDB](docs/luppolo.png) LuppoloDB
+# ![luppoloDB](docs/luppolo.png) LuppoloDB [![Build Status](https://travis-ci.org/deltavi/luppolo-db.svg?branch=master)](https://travis-ci.org/deltavi/luppolo-db)
 In-memory Key-Value store.
 
 ## Table of Contents
