@@ -1,6 +1,8 @@
 'use strict';
 //requires
+const config = require('../config');
 const jpath = require('jsonpath');
+const fs = require('fs-extra');
 
 //DB Store
 var dbs = {};
@@ -82,7 +84,7 @@ function del(db, key) {
 function listDB(unwrapped) {
     var keys = Object.keys(dbs);
     if(unwrapped){
-        return keys
+        return keys;
     }
     var ret = _createResult('found', '_all');
     ret.names = keys;
@@ -92,6 +94,27 @@ function listDB(unwrapped) {
 
 function getDBs() {
     return _createResult('found', '_all', null, dbs);
+}
+function saveDBs() {
+    try {
+        fs.outputJsonSync(config.server.dbs.dump_file, dbs, {spaces: 2});
+        return _createResult('saved', '_all');
+    } catch(err){
+        var ret = _createResult('error', '_all');
+        ret.error = err;
+        return ret;
+    }
+}
+
+function restoreDBs() {
+    try {
+        dbs = fs.readJsonSync(config.server.dbs.dump_file);
+        return _createResult('restored', '_all');
+    } catch(err){
+        var ret = _createResult('error', '_all');
+        ret.error = err;
+        return ret;
+    }
 }
 
 function keys(db) {
@@ -153,3 +176,5 @@ module.exports.keys = keys;
 module.exports.count = count;
 module.exports.search = search;
 module.exports.getDBs = getDBs;
+module.exports.saveDBs = saveDBs;
+module.exports.restoreDBs = restoreDBs;

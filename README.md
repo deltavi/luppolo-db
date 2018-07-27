@@ -13,6 +13,8 @@ In-memory Key-Value store.
   * [COUNT DB KEYS](#count-db-keys)
   * [GET ALL DB NAMES](#get-all-db-names)
   * [GET ALL DBS DATA](#get-all-dbs-data)
+  * [PERSIST ALL DBS DATA](#persist-all-dbs-data)
+  * [RESTORE ALL DBS DATA](#restore-all-dbs-data)
   * [SEARCH BY JSONPATH](#search-by-jsonpath)
   * [SEARCH BY JSONPATH (NODES)](#search-by-jsonpath-nodes)
   * [NUMERIC INCREMENT](#numeric-increment)
@@ -24,7 +26,7 @@ In-memory Key-Value store.
 ### PUT
 Store or update a value in storage.
 
-`PUT http://localhost:3003/luppolo/query/db1/1`
+`PUT http://localhost:3003/luppolo/db/db1/1`
 
 Body:
 ```json
@@ -58,7 +60,7 @@ Body:
 ### GET
 Retrieve a value from storage.
 
-`GET http://localhost:3003/luppolo/query/db1/1`
+`GET http://localhost:3003/luppolo/db/db1/1`
 
 **Result:**
 ```json
@@ -90,7 +92,7 @@ Retrieve a value from storage.
 ### DELETE
 Removes a value from storage.
 
-`DELETE http://localhost:3003/luppolo/query/db1/1`
+`DELETE http://localhost:3003/luppolo/db/db1/1`
 
 **Result:**
 ```json
@@ -122,7 +124,7 @@ Removes a value from storage.
 ### GET DB KEYS
 Retrieve a DB keys from storage.
 
-`GET http://localhost:3003/luppolo/query/db1`
+`GET http://localhost:3003/luppolo/db/db1`
 
 **Result:**
 ```json
@@ -146,7 +148,7 @@ Retrieve a DB keys from storage.
 ```
 
 ### COUNT DB KEYS
-`GET http://localhost:3003/luppolo/query/db1?_count`
+`GET http://localhost:3003/luppolo/db/db1?_count`
 
 **Result:**
 ```json
@@ -166,7 +168,7 @@ Retrieve a DB keys from storage.
 ```
 
 ### GET ALL DB NAMES
-`GET http://localhost:3003/luppolo/query/_dbs?_names`
+`GET http://localhost:3003/luppolo/dbs`
 
 **Result:**
 ```json
@@ -181,7 +183,7 @@ Retrieve a DB keys from storage.
 ```
 
 ### GET ALL DBS DATA
-`GET http://localhost:3003/luppolo/query/_dbs`
+`GET http://localhost:3003/luppolo/dbs?_export`
 
 **Result:**
 ```json
@@ -207,10 +209,61 @@ Retrieve a DB keys from storage.
 }
 ```
 
+### PERSIST ALL DBS DATA
+`GET http://localhost:3003/luppolo/dbs?_persist`
+
+**Result:**
+```json
+{
+  "result": "saved",
+  "db": "_all"
+}
+```
+
+**or**
+
+```json
+{
+  "result": "error",
+  "db": "_all",
+  "error": {
+    "errno": -4048,
+    "code": "EPERM",
+    "syscall": "open",
+    "path": "/luppolo-db/dump/dbs.json"
+  }
+}
+```
+
+### RESTORE ALL DBS DATA
+`GET http://localhost:3003/luppolo/dbs?_restore`
+
+**Result:**
+```json
+{
+  "result": "restored",
+  "db": "_all"
+}
+```
+**or**
+
+```json
+{
+  "result": "error",
+  "db": "_all",
+  "error": {
+    "errno": -4058,
+    "code": "ENOENT",
+    "syscall": "open",
+    "path": "/luppolo-db/dump/dbs.json"
+  }
+}
+```
+
 ### SEARCH BY JSONPATH
 It allows to search in the selected DB using [jsonpath](https://github.com/dchester/jsonpath).
 
-`POST http://localhost:3003/luppolo/query/db1/_search`
+`POST http://localhost:3003/luppolo/db/db1/_search`
 
 Body:
 ```json
@@ -237,7 +290,7 @@ Body:
 ### SEARCH BY JSONPATH (NODES)
 It allows to search in the selected DB using [jsonpath](https://github.com/dchester/jsonpath), returning path and value of the nodes found.
 
-`POST http://localhost:3003/luppolo/query/db1/_search`
+`POST http://localhost:3003/luppolo/db/db1/_search`
 
 Body:
 ```json
@@ -264,11 +317,11 @@ Body:
 ### NUMERIC INCREMENT
 Increments or decrement the number stored at key by incNumber.
 
-`PUT http://localhost:3003/luppolo/query/db1/1/_increment`
+`PUT http://localhost:3003/luppolo/db/db1/1/_increment`
 
-`PUT http://localhost:3003/luppolo/query/db1/1/_increment/100`
+`PUT http://localhost:3003/luppolo/db/db1/1/_increment/100`
 
-`PUT http://localhost:3003/luppolo/query/db1/1/_increment/-10`
+`PUT http://localhost:3003/luppolo/db/db1/1/_increment/-10`
 
 
 **/{db}/{key}/_increment/{incNumber?}**

@@ -1,6 +1,7 @@
+'use strict';
 const fs = require('fs');
 const logger = require('./logger');
-const pluginExtension = '.plup.js';
+const constants = require('./constants');
 const plugins = [];
 const handlers = {};
 module.exports.list = plugins;
@@ -9,7 +10,7 @@ module.exports.load = function(app, db, context){
     const files = fs.readdirSync('./plugins');
     context.plugins = plugins;
     files.forEach(function(file){
-        if(file.endsWith(pluginExtension)){
+        if(file.endsWith(constants.pluginExtension)){
             const plugin = require('../plugins/' + file);
             logger.info('Loading plugin "' + file + '" ("' + (plugin.name || 'unnamed') + '")');
             plugin.init(app, db, context);
@@ -43,4 +44,4 @@ module.exports.load = function(app, db, context){
     } else {
         logger.info('No plugins found!');
     }
-}
+};

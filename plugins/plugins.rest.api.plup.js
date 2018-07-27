@@ -1,16 +1,17 @@
+'use strict';
+const constants = require('../js/constants');
 module.exports = {
-    name : 'Default Plugin',
+    name : 'Plugins REST API',
     description : 'Manage the plugins REST API',
     init : function(app, db, context){
-        const luppoloUIRoot = '/luppolo/ui';
-        app.get(luppoloUIRoot + '/plugins', function (req, res) {
+        app.get(constants.luppoloUIRoot + '/plugins', function (req, res) {
         	res.render('plugins', {
         		title: context.serverName,
         		plugins: context.plugins
         	});
         });
 
-        app.get(luppoloUIRoot + '/plugins/:pluginId', function (req, res) {
+        app.get(constants.luppoloUIRoot + '/plugins/:pluginId', function (req, res) {
         	var params = req.params;
         	var pluginFound = {
         	    name : 'unknown'
@@ -25,6 +26,7 @@ module.exports = {
             json.handlers = Object.keys(pluginFound.handlers || {});
         	res.json(json);
         });
+        module.exports.statusMessage = 'Plugin initialized successfully!';
     },
     handlers: {
         'pre_listDB' : function(args){
@@ -34,4 +36,4 @@ module.exports = {
             console.log('post_listDB', args);
         }
     }
-}
+};

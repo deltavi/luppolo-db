@@ -1,6 +1,10 @@
+'use strict';
 var config = {
     server: {
         port: 3003,
+        dbs: {
+            dump_file: 'dump/dbs.json'
+        },
         logger : {
             console: true,
             datepattern: "YYYY-MM-DD",

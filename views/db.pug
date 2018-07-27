@@ -21,7 +21,7 @@ html
           li [no key]
         each key in keys
           li
-            a(href= '/luppolo/query/'+db+'/'+key+'?pretty' target='valueFrame')= key
+            a(href= '/luppolo/db/'+db+'/'+key+'?pretty' target='valueFrame')= key
             | 
             a(href= '#' class='deleteBtn' onclick='onDelete("' + db + '", "' + key + '")')= 'delete'
 
