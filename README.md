@@ -1,4 +1,5 @@
 # ![luppoloDB](docs/luppolo.png) LuppoloDB [![Build Status](https://travis-ci.org/deltavi/luppolo-db.svg?branch=master)](https://travis-ci.org/deltavi/luppolo-db)
+
 In-memory Key-Value store.
 
 ## Table of Contents
@@ -8,6 +9,7 @@ In-memory Key-Value store.
 - [HTTP API](#http-api)
   * [PUT](#put)
   * [GET](#get)
+  * [DELETE DB](#delete-db)
   * [DELETE](#delete)
   * [GET DB KEYS](#get-db-keys)
   * [COUNT DB KEYS](#count-db-keys)
@@ -18,17 +20,20 @@ In-memory Key-Value store.
   * [SEARCH BY JSONPATH](#search-by-jsonpath)
   * [SEARCH BY JSONPATH (NODES)](#search-by-jsonpath-nodes)
   * [NUMERIC INCREMENT](#numeric-increment)
+- [API](#api)
 
 <!-- tocstop -->
 
 ## HTTP API
 
 ### PUT
+
 Store or update a value in storage.
 
 `PUT http://localhost:3003/luppolo/db/db1/1`
 
 Body:
+
 ```json
 {
     "boolean": true,
@@ -40,7 +45,9 @@ Body:
     ]
 }
 ```
+
 **Result:**
+
 ```json
 {
     "result": "created",
@@ -48,7 +55,9 @@ Body:
     "key": "1"
 }
 ```
+
 **or**
+
 ```json
 {
     "result": "updated",
@@ -58,11 +67,13 @@ Body:
 ```
 
 ### GET
+
 Retrieve a value from storage.
 
 `GET http://localhost:3003/luppolo/db/db1/1`
 
 **Result:**
+
 ```json
 {
     "result": "found",
@@ -80,7 +91,9 @@ Retrieve a value from storage.
     "lastUpdate": "2017-12-23T23:52:11.445Z"
 }
 ```
+
 **or**
+
 ```json
 {
     "result": "unknown",
@@ -89,12 +102,38 @@ Retrieve a value from storage.
 }
 ```
 
+### DELETE DB
+
+Removes a DB from storage.
+
+`DELETE http://localhost:3003/luppolo/db/db1`
+
+**Result:**
+
+```json
+{
+    "result": "deleted",
+    "db": "db1"
+}
+```
+
+**or**
+
+```json
+{
+    "result": "unknown",
+    "db": "db1"
+}
+```
+
 ### DELETE
+
 Removes a value from storage.
 
 `DELETE http://localhost:3003/luppolo/db/db1/1`
 
 **Result:**
+
 ```json
 {
     "result": "deleted",
@@ -112,7 +151,9 @@ Removes a value from storage.
     "lastUpdate": "2017-12-23T23:56:38.310Z"
 }
 ```
+
 **or**
+
 ```json
 {
     "result": "unknown",
@@ -122,11 +163,13 @@ Removes a value from storage.
 ```
 
 ### GET DB KEYS
+
 Retrieve a DB keys from storage.
 
 `GET http://localhost:3003/luppolo/db/db1`
 
 **Result:**
+
 ```json
 {
     "result": "found",
@@ -137,7 +180,9 @@ Retrieve a DB keys from storage.
     "total": 1
 }
 ```
+
 **or**
+
 ```json
 {
     "result": "unknown",
@@ -148,9 +193,11 @@ Retrieve a DB keys from storage.
 ```
 
 ### COUNT DB KEYS
+
 `GET http://localhost:3003/luppolo/db/db1?_count`
 
 **Result:**
+
 ```json
 {
     "result": "found",
@@ -158,7 +205,9 @@ Retrieve a DB keys from storage.
     "total": 1
 }
 ```
+
 **or**
+
 ```json
 {
     "result": "unknown",
@@ -168,9 +217,11 @@ Retrieve a DB keys from storage.
 ```
 
 ### GET ALL DB NAMES
+
 `GET http://localhost:3003/luppolo/dbs`
 
 **Result:**
+
 ```json
 {
     "result": "found",
@@ -183,9 +234,11 @@ Retrieve a DB keys from storage.
 ```
 
 ### GET ALL DBS DATA
+
 `GET http://localhost:3003/luppolo/dbs?_export`
 
 **Result:**
+
 ```json
 {
     "result": "found",
@@ -210,9 +263,11 @@ Retrieve a DB keys from storage.
 ```
 
 ### PERSIST ALL DBS DATA
+
 `GET http://localhost:3003/luppolo/dbs?_persist`
 
 **Result:**
+
 ```json
 {
   "result": "saved",
@@ -236,15 +291,18 @@ Retrieve a DB keys from storage.
 ```
 
 ### RESTORE ALL DBS DATA
+
 `GET http://localhost:3003/luppolo/dbs?_restore`
 
 **Result:**
+
 ```json
 {
   "result": "restored",
   "db": "_all"
 }
 ```
+
 **or**
 
 ```json
@@ -261,11 +319,13 @@ Retrieve a DB keys from storage.
 ```
 
 ### SEARCH BY JSONPATH
+
 It allows to search in the selected DB using [jsonpath](https://github.com/dchester/jsonpath).
 
 `POST http://localhost:3003/luppolo/db/db1/_search`
 
 Body:
+
 ```json
 {
     "jpath" : "$..array"
@@ -273,6 +333,7 @@ Body:
 ```
 
 **Result:**
+
 ```json
 {
     "result": "found",
@@ -288,11 +349,13 @@ Body:
 ```
 
 ### SEARCH BY JSONPATH (NODES)
+
 It allows to search in the selected DB using [jsonpath](https://github.com/dchester/jsonpath), returning path and value of the nodes found.
 
 `POST http://localhost:3003/luppolo/db/db1/_search`
 
 Body:
+
 ```json
 {
     "jpath-nodes" : "$..array[?(@>200)]"
@@ -300,6 +363,7 @@ Body:
 ```
 
 **Result:**
+
 ```json
 {
     "result": "found",
@@ -315,6 +379,7 @@ Body:
 ```
 
 ### NUMERIC INCREMENT
+
 Increments or decrement the number stored at key by incNumber.
 
 `PUT http://localhost:3003/luppolo/db/db1/1/_increment`
@@ -323,16 +388,16 @@ Increments or decrement the number stored at key by incNumber.
 
 `PUT http://localhost:3003/luppolo/db/db1/1/_increment/-10`
 
+**/{db}/{key}/\_increment/{incNumber?}**
 
-**/{db}/{key}/_increment/{incNumber?}**
-
-Param         | Description      | Default
---------------|----------------- |--------
-db            | DB name          |
-key           | Key              |
-incNumber     | Increment number | +1
+| Param     | Description      | Default |
+| --------- | ---------------- | ------- |
+| db        | DB name          |         |
+| key       | Key              |         |
+| incNumber | Increment number | +1      |
 
 **Result:**
+
 ```json
 {
     "result": "created",
@@ -343,6 +408,7 @@ incNumber     | Increment number | +1
 ```
 
 **or**
+
 ```json
 {
     "result": "updated",
@@ -353,6 +419,7 @@ incNumber     | Increment number | +1
 ```
 
 **or**
+
 ```json
 {
     "result": "error",
@@ -372,6 +439,7 @@ incNumber     | Increment number | +1
 ```
 
 **or**
+
 ```json
 {
     "result": "error",

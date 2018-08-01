@@ -3,7 +3,7 @@ const config = require('../config');
 const logger = require('../js/logger');
 const fs = require('fs-extra');
 module.exports = {
-    name : 'Restore DBs Plugin',
+    name : 'Auto Restore DBs Plugin',
     description : 'Restore the persistent version of all DBs on startup',
     init : function(app, db){
         if(fs.pathExistsSync(config.server.dbs.dump_file)){

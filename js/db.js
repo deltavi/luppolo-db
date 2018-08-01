@@ -46,6 +46,15 @@ function put(db, key, value) {
     return _createResult(result, db, key);
 }
 
+function createDB(db) {
+    var result = 'exists';
+    if(!dbs[db]){
+        result = 'created';
+        dbs[db] = {};
+    }
+    return _createResult(result, db);
+}
+
 function increment(db, key, incNumber) {
     incNumber = incNumber || 1;
     dbs[db] = dbs[db] || {};
@@ -81,6 +90,17 @@ function del(db, key) {
     return ret;
 }
 
+function deleteDB(db) {
+    var ret;
+    if (dbs[db]) {
+        ret = _createResult('deleted', db);
+        delete dbs[db];
+    } else {
+        ret = _createResult('unknown', db);
+    }
+    return ret;
+}
+
 function listDB(unwrapped) {
     var keys = Object.keys(dbs);
     if(unwrapped){
@@ -95,10 +115,22 @@ function listDB(unwrapped) {
 function getDBs() {
     return _createResult('found', '_all', null, dbs);
 }
+
 function saveDBs() {
     try {
         fs.outputJsonSync(config.server.dbs.dump_file, dbs, {spaces: 2});
         return _createResult('saved', '_all');
+    } catch(err){
+        var ret = _createResult('error', '_all');
+        ret.error = err;
+        return ret;
+    }
+}
+function resetDBsAndPersist() {
+    try {
+        dbs = {};
+        fs.outputJsonSync(config.server.dbs.dump_file, dbs, {spaces: 2});
+        return _createResult('reset', '_all');
     } catch(err){
         var ret = _createResult('error', '_all');
         ret.error = err;
@@ -169,8 +201,10 @@ function search(db, query) {
 // exports
 module.exports.get = get;
 module.exports.put = put;
+module.exports.createDB = createDB;
 module.exports.increment = increment;
 module.exports.delete = del;
+module.exports.deleteDB = deleteDB;
 module.exports.listDB = listDB;
 module.exports.keys = keys;
 module.exports.count = count;
@@ -178,3 +212,4 @@ module.exports.search = search;
 module.exports.getDBs = getDBs;
 module.exports.saveDBs = saveDBs;
 module.exports.restoreDBs = restoreDBs;
+module.exports.resetDBsAndPersist = resetDBsAndPersist;

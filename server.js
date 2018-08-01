@@ -17,6 +17,8 @@ logger.info('Initializing...');
 
 // express
 var app = express();
+module.exports = app; // for testing
+
 app.set('view engine', 'pug');
 app.use(pretty({ query: 'pretty' }));
 app.use(express.static('docs'));
@@ -77,7 +79,7 @@ app.get(constants.luppoloUIRoot + '/test/:total', function (req, res) {
 	res.json({ test: 'ok' });
 });
 
-// GET ALL DBS
+// ALL DBS: EXPORT/PERSIST/RESTORE/RESET
 app.get(constants.luppoloDbsRoot , function (req, res) {
 	var query = req.query;
 	var json;
@@ -87,6 +89,8 @@ app.get(constants.luppoloDbsRoot , function (req, res) {
 		json = db.saveDBs();
 	} else if (query.hasOwnProperty('_restore')) {
 		json = db.restoreDBs();
+	} else if (query.hasOwnProperty('_resetAndPersist')) {
+		json = db.resetDBsAndPersist();
 	} else {
 		json = db.listDB();
 	}
@@ -122,11 +126,26 @@ app.put(constants.luppoloDbRoot + '/:db/:key', function (req, res) {
 	res.json(db.put(params.db, params.key, req.body));
 });
 
-// DELETE
+// CREATE DB
+app.put(constants.luppoloDbRoot + '/:db', function (req, res) {
+	var params = req.params;
+	res.setHeader('Content-Type', 'application/json');
+	res.json(db.createDB(params.db));
+});
+
+
+// DELETE KEY
 app.delete(constants.luppoloDbRoot + '/:db/:key', function (req, res) {
 	var params = req.params;
 	res.setHeader('Content-Type', 'application/json');
 	res.json(db.delete(params.db, params.key));
+});
+
+// DELETE DB
+app.delete(constants.luppoloDbRoot + '/:db', function (req, res) {
+	var params = req.params;
+	res.setHeader('Content-Type', 'application/json');
+	res.json(db.deleteDB(params.db));
 });
 
 // SEARCH
@@ -143,3 +162,19 @@ app.put(constants.luppoloDbRoot + '/:db/:key/_increment/:incNumber?', function (
 	res.json(db.increment(params.db, params.key, params.incNumber));
 });
 
+// ERROR HANDLING
+app.use(/* jshint unused:false */ function (err, req, res, next) {
+    var params = req.params;
+    console.error(err);
+    res.setHeader('Content-Type', 'application/json');
+    var ret = {
+        result: 'error',
+        path: req.originalUrl,
+        body: req.body,
+        errorStack: err.stack
+    };
+    if (params.db){
+        ret.db = params.db;
+    }
+    res.json(ret);
+});
