@@ -450,4 +450,4 @@ Increments or decrement the number stored at key by incNumber.
 }
 ```
 
-### <small style="background-color: deepskyblue; color:white; padding:0 5px; border-radius: 5px;">GET</small> test
+### <b style="background-color: deepskyblue; color:white; padding:0 5px; border-radius: 5px;">GET</b> test
