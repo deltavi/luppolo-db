@@ -449,3 +449,5 @@ Increments or decrement the number stored at key by incNumber.
     "message": "incNumber is NaN."
 }
 ```
+
+### <small style="background-color: deepskyblue; color:white; padding:0 5px; border-radius: 5px;">GET</small> test
