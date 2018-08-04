@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha --ui tdd test --timeout 10000 --exit",
-    "doc": "exit && documentation readme server.js --section=API --markdown-toc false && node ./js/rest-markdown.js && markdown-toc README.md -i --maxdepth 3"
+    "doc": "documentation readme server.js --section=\"HTTP DBs API\" --markdown-toc false && node ./js/rest-markdown.js && markdown-toc README.md -i --maxdepth 3"
   },
   "keywords": [
     "LuppoloDB",

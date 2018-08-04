@@ -9,7 +9,7 @@ suite('LuppoloDB', function () {
     suite('DB methods', function () {
         test('Reset DBs and persist', function (done) {
             chai.request(server)
-            .get('/luppolo/dbs?_resetAndPersist')
+            .get('/luppolo/dbs?_deleteAndPersist')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
@@ -136,7 +136,7 @@ suite('LuppoloDB', function () {
         });
         test('Reset DBs and persist', function (done) {
             chai.request(server)
-            .get('/luppolo/dbs?_resetAndPersist')
+            .get('/luppolo/dbs?_deleteAndPersist')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');

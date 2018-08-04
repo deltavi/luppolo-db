@@ -79,7 +79,109 @@ app.get(constants.luppoloUIRoot + '/test/:total', function (req, res) {
 	res.json({ test: 'ok' });
 });
 
-// ALL DBS: EXPORT/PERSIST/RESTORE/RESET
+// DB REST API
+
+/**
+ * $REST LIST/EXPORT/PERSIST/RESTORE/DELETE all DBs
+ * `GET http://localhost:3003/luppolo/dbs?{action}`
+ * 
+|Description|action  |
+|-----------|--------|
+|Get list of databases||
+|Exports all the DBs data as JSON|**_export**|
+|Save all the DBs data on the file system|**_persist**|
+|Restore all the DBs data from the file system|**_restore**|
+|Delete all the DBs from the memory and from the file system|**_deleteAndPersist**|
+ * @example Get list of database:
+ * [GET] "http://localhost:3003/luppolo/dbs"
+ * {
+ *     "result": "found",
+ *     "db": "_all",
+ *     "names": [
+ *         "db1"
+ *     ],
+ *     "total": 1
+ * }
+ * @example Exports all the DBs data as JSON:
+ * [GET] "http://localhost:3003/luppolo/dbs?_export"
+ * {
+ *  "result": "found",
+ *     "db": "_all",
+ *     "value": {
+ *         "db1": {
+ *             "1": {
+ *                 "value": {
+ *                     "boolean": true,
+ *                     "number": 123,
+ *                     "string": "text",
+ *                     "array": [
+ *                         "123",
+ *                         "456"
+ *                     ]
+ *                 },
+ *                 "lastUpdate": "2018-07-14T09:01:01.748Z"
+ *             }
+ *         }
+ *     }
+ * }
+ * @example Save all the DBs data on the file system:
+ * [GET] "http://localhost:3003/luppolo/dbs?_persist"
+ * {
+ *   "result": "saved",
+ *   "db": "_all"
+ * }
+ * 
+ * or
+ * 
+ * {
+ *   "result": "error",
+ *   "db": "_all",
+ *   "error": {
+ *     "errno": -4048,
+ *     "code": "EPERM",
+ *     "syscall": "open",
+ *     "path": "/luppolo-db/dump/dbs.json"
+ *   }
+ * }
+ * @example Restore all the DBs data from the file system:
+ * [GET] "http://localhost:3003/luppolo/dbs?_restore"
+ * {
+ *   "result": "restored",
+ *   "db": "_all"
+ * }
+ * 
+ * or
+ * 
+ * {
+ *   "result": "error",
+ *   "db": "_all",
+ *   "error": {
+ *     "errno": -4058,
+ *     "code": "ENOENT",
+ *     "syscall": "open",
+ *     "path": "/luppolo-db/dump/dbs.json"
+ *   }
+ * }
+ * @example Delete all the DBs from the memory and from the file system:
+ * [GET] "http://localhost:3003/luppolo/dbs?_deleteAndPersist"
+ * {
+ *   "result": "reset",
+ *   "db": "_all"
+ * }
+ * 
+ * or
+ * 
+ * {
+ *   "result": "error",
+ *   "db": "_all",
+ *   "error": {
+ *     "errno": -4048,
+ *     "code": "EPERM",
+ *     "syscall": "open",
+ *     "path": "/luppolo-db/dump/dbs.json"
+ *   }
+ * }
+ */
 app.get(constants.luppoloDbsRoot , function (req, res) {
 	var query = req.query;
 	var json;
@@ -89,8 +191,8 @@ app.get(constants.luppoloDbsRoot , function (req, res) {
 		json = db.saveDBs();
 	} else if (query.hasOwnProperty('_restore')) {
 		json = db.restoreDBs();
-	} else if (query.hasOwnProperty('_resetAndPersist')) {
-		json = db.resetDBsAndPersist();
+	} else if (query.hasOwnProperty('_deleteAndPersist')) {
+		json = db.deleteDBsAndPersist();
 	} else {
 		json = db.listDB();
 	}

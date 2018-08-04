@@ -126,7 +126,7 @@ function saveDBs() {
         return ret;
     }
 }
-function resetDBsAndPersist() {
+function deleteDBsAndPersist() {
     try {
         dbs = {};
         fs.outputJsonSync(config.server.dbs.dump_file, dbs, {spaces: 2});
@@ -212,4 +212,4 @@ module.exports.search = search;
 module.exports.getDBs = getDBs;
 module.exports.saveDBs = saveDBs;
 module.exports.restoreDBs = restoreDBs;
-module.exports.resetDBsAndPersist = resetDBsAndPersist;
+module.exports.deleteDBsAndPersist = deleteDBsAndPersist;
