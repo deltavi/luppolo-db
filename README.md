@@ -20,7 +20,6 @@ In-memory Key-Value store.
   * [SEARCH BY JSONPATH](#search-by-jsonpath)
   * [SEARCH BY JSONPATH (NODES)](#search-by-jsonpath-nodes)
   * [NUMERIC INCREMENT](#numeric-increment)
-- [API](#api)
 
 <!-- tocstop -->
 
