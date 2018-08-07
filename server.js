@@ -92,6 +92,9 @@ app.get(constants.luppoloUIRoot + '/test/:total', function (req, res) {
 |Save all the DBs data on the file system|**_persist**|
 |Restore all the DBs data from the file system|**_restore**|
 |Delete all the DBs from the memory and from the file system|**_deleteAndPersist**|
+ * ### Examples
+ * #### Exports all the DBs data as JSON
+ * $INCLUDE ./examples/dbs.export.js
  * @example Get list of database:
  * [GET] "http://localhost:3003/luppolo/dbs"
  * {
