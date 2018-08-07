@@ -1,0 +1,9 @@
+{
+    "boolean": true,
+    "number": 123,
+    "string": "text",
+    "array": [
+        "123",
+        "456"
+    ]
+}

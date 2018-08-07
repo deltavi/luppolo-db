@@ -94,28 +94,28 @@ app.get(constants.luppoloUIRoot + '/test/:total', function (req, res) {
 |Delete all the DBs from the memory and from the file system|**_deleteAndPersist**|
  * ### Examples
  * #### Get list of database:
- * $INCLUDE ./examples/dbs.list.js
+ * $INCLUDE ./examples/dbs.list.json
  *
  * #### Exports all the DBs data as JSON
- * $INCLUDE ./examples/dbs.export.js
+ * $INCLUDE ./examples/dbs.export.json
  *
  * #### Save all the DBs data on the file system
- * $INCLUDE ./examples/dbs.persist.js
+ * $INCLUDE ./examples/dbs.persist.json
  * 
  * *on Error*
- * $INCLUDE ./examples/dbs.persist.err.js
+ * $INCLUDE ./examples/dbs.persist.err.json
  *
  * #### Restore all the DBs data from the file system:
- * $INCLUDE ./examples/dbs.restore.js
+ * $INCLUDE ./examples/dbs.restore.json
  * 
  * *on Error*
- * $INCLUDE ./examples/dbs.restore.err.js
+ * $INCLUDE ./examples/dbs.restore.err.json
  *
  * #### Delete all the DBs from the memory and from the file system:
- * $INCLUDE ./examples/dbs.delete.and.persist.js
+ * $INCLUDE ./examples/dbs.delete.and.persist.json
  *
  * *on Error*
- * $INCLUDE ./examples/dbs.delete.and.persist.err.js
+ * $INCLUDE ./examples/dbs.delete.and.persist.err.json
  */
 app.get(constants.luppoloDbsRoot , function (req, res) {
 	var query = req.query;
