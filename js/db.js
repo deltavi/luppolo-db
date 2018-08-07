@@ -130,7 +130,7 @@ function deleteDBsAndPersist() {
     try {
         dbs = {};
         fs.outputJsonSync(config.server.dbs.dump_file, dbs, {spaces: 2});
-        return _createResult('reset', '_all');
+        return _createResult('deleted', '_all');
     } catch(err){
         var ret = _createResult('error', '_all');
         ret.error = err;

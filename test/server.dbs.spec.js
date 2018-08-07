@@ -7,13 +7,13 @@ chai.use(chaiHttp);
 
 suite('LuppoloDB', function () {
     suite('DB methods', function () {
-        test('Reset DBs and persist', function (done) {
+        test('Delete DBs and persist', function (done) {
             chai.request(server)
             .get('/luppolo/dbs?_deleteAndPersist')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
-                res.body.result.should.be.equal('reset');
+                res.body.result.should.be.equal('deleted');
                 res.body.db.should.be.equal('_all');
                 console.log(res.body);
                 done();
@@ -134,13 +134,13 @@ suite('LuppoloDB', function () {
                 done();
             });
         });
-        test('Reset DBs and persist', function (done) {
+        test('Delete DBs and persist', function (done) {
             chai.request(server)
             .get('/luppolo/dbs?_deleteAndPersist')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
-                res.body.result.should.be.equal('reset');
+                res.body.result.should.be.equal('deleted');
                 res.body.db.should.be.equal('_all');
                 console.log(res.body);
                 done();

@@ -38,9 +38,10 @@ In-memory Key-Value store.
 
 #### Examples
 
+##### Get list of database:
+
 ```javascript
-Get list of database:
-[GET] "http://localhost:3003/luppolo/dbs"
+//[GET] "http://localhost:3003/luppolo/dbs"
 {
     "result": "found",
     "db": "_all",
@@ -51,11 +52,12 @@ Get list of database:
 }
 ```
 
+##### Exports all the DBs data as JSON
+
 ```javascript
-Exports all the DBs data as JSON:
-[GET] "http://localhost:3003/luppolo/dbs?_export"
+//[GET] "http://localhost:3003/luppolo/dbs?_export"
 {
- "result": "found",
+    "result": "found",
     "db": "_all",
     "value": {
         "db1": {
@@ -76,16 +78,18 @@ Exports all the DBs data as JSON:
 }
 ```
 
+##### Save all the DBs data on the file system
+
 ```javascript
-Save all the DBs data on the file system:
-[GET] "http://localhost:3003/luppolo/dbs?_persist"
+//[GET] "http://localhost:3003/luppolo/dbs?_persist"
 {
   "result": "saved",
   "db": "_all"
 }
+```
 
-or
-
+_on Error_
+```javascript
 {
   "result": "error",
   "db": "_all",
@@ -98,16 +102,18 @@ or
 }
 ```
 
+##### Restore all the DBs data from the file system:
+
 ```javascript
-Restore all the DBs data from the file system:
-[GET] "http://localhost:3003/luppolo/dbs?_restore"
+//[GET] "http://localhost:3003/luppolo/dbs?_restore"
 {
   "result": "restored",
   "db": "_all"
 }
+```
 
-or
-
+_on Error_
+```javascript
 {
   "result": "error",
   "db": "_all",
@@ -120,16 +126,18 @@ or
 }
 ```
 
+##### Delete all the DBs from the memory and from the file system:
+
 ```javascript
-Delete all the DBs from the memory and from the file system:
-[GET] "http://localhost:3003/luppolo/dbs?_deleteAndPersist"
+//[GET] "http://localhost:3003/luppolo/dbs?_deleteAndPersist"
 {
-  "result": "reset",
+  "result": "deleted",
   "db": "_all"
 }
+```
 
-or
-
+_on Error_
+```javascript
 {
   "result": "error",
   "db": "_all",
